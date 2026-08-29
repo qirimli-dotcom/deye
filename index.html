@@ -165,12 +165,7 @@
 </header>
 
 <section class="hero" id="top">
-  <div class="hero-slides">
-    <div class="hero-slide is-active" style="background-image:url('img/slider/slide1.webp')"></div>
-    <div class="hero-slide" style="background-image:url('img/slider/slide2.webp')"></div>
-    <div class="hero-slide" style="background-image:url('img/slider/slide3.webp')"></div>
-    <div class="hero-slide" style="background-image:url('img/slider/slide4.webp')"></div>
-  </div>
+  <div class="hero-slides" id="heroSlides"></div>
   <div class="hero-inner">
     <h1>Гибридный инвертор DEYE</h1>
     <p class="hero-sub">Гибридные инверторы DEYE / Сетевые и микроинверторы / Системы хранения энергии ESS</p>
@@ -182,14 +177,56 @@
 
 <script>
   (function(){
-    var slides = document.querySelectorAll('.hero-slide');
-    if(slides.length < 2) return;
-    var current = 0;
-    setInterval(function(){
-      slides[current].classList.remove('is-active');
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('is-active');
-    }, 4500);
+    // Пробуем несколько вероятных путей/имён для каждого слайда по очереди.
+    // Первый, который реально загрузится, и будет использован.
+    var candidatesPerSlide = [
+      ['img/slider/slide1.webp','img/banner/banner1.webp','img/slider/banner1.webp','img/banner/slide1.webp'],
+      ['img/slider/slide2.webp','img/banner/banner2.webp','img/slider/banner2.webp','img/banner/slide2.webp'],
+      ['img/slider/slide3.webp','img/banner/banner3.webp','img/slider/banner3.webp','img/banner/slide3.webp'],
+      ['img/slider/slide4.webp','img/banner/banner4.webp','img/slider/banner4.webp','img/banner/slide4.webp']
+    ];
+
+    var container = document.getElementById('heroSlides');
+    var slideEls = [];
+
+    function tryLoad(candidates, idx, onDone){
+      if(idx >= candidates.length){ onDone(null); return; }
+      var img = new Image();
+      img.onload = function(){ onDone(candidates[idx]); };
+      img.onerror = function(){ tryLoad(candidates, idx+1, onDone); };
+      img.src = candidates[idx];
+    }
+
+    var loaded = 0;
+    candidatesPerSlide.forEach(function(candidates, i){
+      var div = document.createElement('div');
+      div.className = 'hero-slide';
+      container.appendChild(div);
+      slideEls[i] = div;
+      tryLoad(candidates, 0, function(foundUrl){
+        if(foundUrl){
+          div.style.backgroundImage = "url('" + foundUrl + "')";
+          div.dataset.loaded = '1';
+        }
+        loaded++;
+        if(loaded === candidatesPerSlide.length){
+          startSlider();
+        }
+      });
+    });
+
+    function startSlider(){
+      var working = slideEls.filter(function(el){ return el.dataset.loaded === '1'; });
+      if(working.length === 0) return;
+      working[0].classList.add('is-active');
+      if(working.length < 2) return;
+      var current = 0;
+      setInterval(function(){
+        working[current].classList.remove('is-active');
+        current = (current + 1) % working.length;
+        working[current].classList.add('is-active');
+      }, 4500);
+    }
   })();
 </script>
 
