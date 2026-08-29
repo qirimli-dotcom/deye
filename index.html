@@ -91,9 +91,19 @@
     background:#0d0f12;
     text-align:center;
   }
-  /* Место для фонового видео: чтобы вернуть баннер, добавьте внутрь .hero (первым элементом) тег
-     <video autoplay muted loop playsinline><source src="ВАШ_ФАЙЛ.mp4" type="video/mp4"></video>
-     и в CSS пропишите для него: position:absolute; inset:0; width:100%; height:100%; object-fit:cover; */
+  .hero-slides{
+    position:absolute;inset:0;
+  }
+  .hero-slide{
+    position:absolute;inset:0;
+    background-size:cover;
+    background-position:center;
+    opacity:0;
+    transition:opacity 1.2s ease;
+  }
+  .hero-slide.is-active{
+    opacity:1;
+  }
   .hero::before{
     content:'';position:absolute;inset:0;
     background:rgba(10,10,10,0.4);
@@ -155,6 +165,12 @@
 </header>
 
 <section class="hero" id="top">
+  <div class="hero-slides">
+    <div class="hero-slide is-active" style="background-image:url('img/banner/banner1.webp')"></div>
+    <div class="hero-slide" style="background-image:url('img/banner/banner2.webp')"></div>
+    <div class="hero-slide" style="background-image:url('img/banner/banner3.webp')"></div>
+    <div class="hero-slide" style="background-image:url('img/banner/banner4.webp')"></div>
+  </div>
   <div class="hero-inner">
     <h1>Гибридный инвертор DEYE</h1>
     <p class="hero-sub">Гибридные инверторы DEYE / Сетевые и микроинверторы / Системы хранения энергии ESS</p>
@@ -163,6 +179,19 @@
     </div>
   </div>
 </section>
+
+<script>
+  (function(){
+    var slides = document.querySelectorAll('.hero-slide');
+    if(slides.length < 2) return;
+    var current = 0;
+    setInterval(function(){
+      slides[current].classList.remove('is-active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('is-active');
+    }, 4500);
+  })();
+</script>
 
 </body>
 </html>
