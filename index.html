@@ -90,11 +90,21 @@
     flex:1 1 auto;
     min-height:220px;
     display:flex;
-    align-items:center;
+    align-items:flex-end;
     justify-content:center;
     overflow:hidden;
     background:#0d0f12;
     text-align:center;
+  }
+  .hero::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.55) 100%);
+    z-index:1;
+    pointer-events:none;
+  }
+  .hero-btn-wrap{
+    position:relative;z-index:2;
+    padding-bottom:clamp(24px, 5vh, 60px);
   }
   .hero-slides{
     position:absolute;inset:0;
@@ -109,13 +119,6 @@
   }
   .hero-slide.is-active{
     opacity:1;
-  }
-  .hero-cta-bar{
-    flex:0 0 auto;
-    background:#0d0f12;
-    padding:36px 20px;
-    display:flex;
-    justify-content:center;
   }
   .hero h1{
     font-family:'Inter',Arial,sans-serif;
@@ -169,11 +172,10 @@
 
 <section class="hero" id="top">
   <div class="hero-slides" id="heroSlides"></div>
+  <div class="hero-btn-wrap">
+    <a href="#catalog" class="btn">Каталог</a>
+  </div>
 </section>
-
-<div class="hero-cta-bar">
-  <a href="#catalog" class="btn">Каталог</a>
-</div>
 
 <script>
   (function(){
