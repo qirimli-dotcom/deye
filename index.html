@@ -82,22 +82,23 @@
   /* ---------- Hero ---------- */
   .hero{
     position:relative;
-    height:65vh;
-    min-height:420px;
+    height:82vh;
+    min-height:560px;
     display:flex;
     align-items:flex-end;
     justify-content:center;
     overflow:hidden;
     background:#0d0f12;
     text-align:center;
-    padding-bottom:60px;
+    padding-bottom:90px;
   }
   .hero-slides{
     position:absolute;inset:0;
   }
   .hero-slide{
     position:absolute;inset:0;
-    background-size:cover;
+    background-size:contain;
+    background-repeat:no-repeat;
     background-position:center;
     opacity:0;
     transition:opacity 1.2s ease;
