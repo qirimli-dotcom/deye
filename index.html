@@ -149,6 +149,43 @@
   }
   .btn:hover{background:transparent;color:var(--gold-soft);transform:translateY(-1px);}
 
+  .nav-toggle{
+    display:none;
+    background:none;border:none;
+    font-size:24px;line-height:1;
+    color:var(--deye-blue);cursor:pointer;
+    padding:4px 6px;
+  }
+  .mobile-nav{
+    display:none;
+    flex-direction:column;
+    border-top:1px solid var(--line);
+    padding:8px 0;
+  }
+  .mobile-nav.open{display:flex;}
+  .mobile-nav a{
+    padding:12px 20px;
+    font-size:15px;color:var(--nav-text);
+    border-bottom:1px solid var(--line);
+  }
+  .mobile-nav a.phone{color:var(--deye-blue);font-weight:600;border-bottom:none;}
+
+  @media(max-width:768px){
+    header{padding:10px 0;}
+    header .wrap{padding:0 16px;}
+    .logo img{height:24px;}
+    nav{display:none;}
+    .phone{display:none;}
+    .nav-toggle{display:block;}
+    .hero{
+      flex:1 1 auto;
+      min-height:180px;
+    }
+    .hero-slide{object-position:center top;}
+    .hero-btn-wrap{padding-bottom:16px;}
+    .btn{padding:11px 20px;font-size:13px;}
+  }
+
 </style>
 </head>
 <body>
@@ -167,6 +204,14 @@
     <div class="header-cta">
       <a class="phone" href="tel:+74957788339">+7 495 778‑83‑39</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Меню">☰</button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#top">Главная</a>
+    <a href="#catalog">Инверторы</a>
+    <a href="#catalog">Аккумуляторы</a>
+    <a href="#catalog">Солнечные панели</a>
+    <a class="phone" href="tel:+74957788339">+7 495 778‑83‑39</a>
   </div>
 </header>
 
@@ -237,6 +282,24 @@
         working[current].classList.add('is-active');
       }, 4500);
     }
+  })();
+</script>
+
+<script>
+  (function(){
+    var toggle = document.getElementById('navToggle');
+    var menu = document.getElementById('mobileNav');
+    if(!toggle || !menu) return;
+    toggle.addEventListener('click', function(){
+      menu.classList.toggle('open');
+      toggle.textContent = menu.classList.contains('open') ? '✕' : '☰';
+    });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        menu.classList.remove('open');
+        toggle.textContent = '☰';
+      });
+    });
   })();
 </script>
 
