@@ -99,7 +99,7 @@
   }
   .hero-slide{
     position:absolute;inset:0;
-    background-size:contain;
+    background-size:cover;
     background-repeat:no-repeat;
     background-position:center;
     opacity:0;
@@ -194,21 +194,28 @@
     function tryLoad(candidates, idx, onDone){
       if(idx >= candidates.length){ onDone(null); return; }
       var img = new Image();
-      img.onload = function(){ onDone(candidates[idx]); };
+      img.onload = function(){ onDone(candidates[idx], img.naturalWidth, img.naturalHeight); };
       img.onerror = function(){ tryLoad(candidates, idx+1, onDone); };
       img.src = candidates[idx];
     }
 
     var loaded = 0;
+    var heroEl = document.querySelector('.hero');
+    var ratioSet = false;
     candidatesPerSlide.forEach(function(candidates, i){
       var div = document.createElement('div');
       div.className = 'hero-slide';
       container.appendChild(div);
       slideEls[i] = div;
-      tryLoad(candidates, 0, function(foundUrl){
+      tryLoad(candidates, 0, function(foundUrl, w, h){
         if(foundUrl){
           div.style.backgroundImage = "url('" + foundUrl + "')";
           div.dataset.loaded = '1';
+          if(!ratioSet && w && h){
+            heroEl.style.aspectRatio = w + ' / ' + h;
+            heroEl.style.height = 'auto';
+            ratioSet = true;
+          }
         }
         loaded++;
         if(loaded === candidatesPerSlide.length){
