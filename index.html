@@ -108,15 +108,11 @@
   .hero-slide.is-active{
     opacity:1;
   }
-  .hero::before{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(180deg, rgba(6,7,9,0.88) 0%, rgba(6,7,9,0.55) 22%, rgba(10,10,10,0.4) 45%, rgba(10,10,10,0.45) 100%);
-    z-index:1;
-  }
-  .hero-inner{
-    position:relative;z-index:2;width:100%;
-    display:flex;flex-direction:column;align-items:center;
-    padding:0 20px;
+  .hero-cta-bar{
+    background:#0d0f12;
+    padding:36px 20px;
+    display:flex;
+    justify-content:center;
   }
   .hero h1{
     font-family:'Inter',Arial,sans-serif;
@@ -170,12 +166,11 @@
 
 <section class="hero" id="top">
   <div class="hero-slides" id="heroSlides"></div>
-  <div class="hero-inner">
-    <div class="hero-actions">
-      <a href="#catalog" class="btn">Каталог</a>
-    </div>
-  </div>
 </section>
+
+<div class="hero-cta-bar">
+  <a href="#catalog" class="btn">Каталог</a>
+</div>
 
 <script>
   (function(){
@@ -201,14 +196,15 @@
 
     var loaded = 0;
     candidatesPerSlide.forEach(function(candidates, i){
-      var div = document.createElement('div');
-      div.className = 'hero-slide';
-      container.appendChild(div);
-      slideEls[i] = div;
+      var el = document.createElement('img');
+      el.className = 'hero-slide';
+      el.alt = '';
+      container.appendChild(el);
+      slideEls[i] = el;
       tryLoad(candidates, 0, function(foundUrl){
         if(foundUrl){
-          div.style.backgroundImage = "url('" + foundUrl + "')";
-          div.dataset.loaded = '1';
+          el.src = foundUrl;
+          el.dataset.loaded = '1';
         }
         loaded++;
         if(loaded === candidatesPerSlide.length){
