@@ -22,6 +22,9 @@
   html{scroll-behavior:smooth;}
   body{
     margin:0;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
     background:#0d0f12;
     color:#fff;
     font-family:'Inter',Arial,sans-serif;
@@ -40,6 +43,7 @@
 
   /* ---------- Header ---------- */
   header{
+    flex:0 0 auto;
     position:sticky;top:0;left:0;right:0;z-index:100;
     padding:16px 0;
     background:#ffffff;
@@ -79,21 +83,43 @@
     nav a{font-size:12.5px;}
   }
 
+  @media(max-width:768px){
+    header{padding:12px 0;}
+    .logo img{height:26px;}
+    .phone{display:none;}
+    .hero{
+      flex:0 0 auto;
+      height:82vw;
+      min-height:260px;
+      max-height:420px;
+    }
+    .hero-slide{object-position:center top;}
+    .hero-btn-wrap{padding-bottom:20px;}
+    .btn{padding:12px 22px;font-size:13px;}
+  }
+
   /* ---------- Hero ---------- */
   .hero{
     position:relative;
     width:100%;
-    max-width:1600px;
-    margin:0 auto;
-    aspect-ratio:1920/640;
-    height:auto;
-    min-height:180px;
+    flex:1 1 auto;
+    min-height:220px;
     display:flex;
-    align-items:center;
+    align-items:flex-end;
     justify-content:center;
     overflow:hidden;
     background:#0d0f12;
     text-align:center;
+  }
+  .hero::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.55) 100%);
+    z-index:1;
+    pointer-events:none;
+  }
+  .hero-btn-wrap{
+    position:relative;z-index:2;
+    padding-bottom:clamp(24px, 5vh, 60px);
   }
   .hero-slides{
     position:absolute;inset:0;
@@ -108,12 +134,6 @@
   }
   .hero-slide.is-active{
     opacity:1;
-  }
-  .hero-cta-bar{
-    background:#0d0f12;
-    padding:36px 20px;
-    display:flex;
-    justify-content:center;
   }
   .hero h1{
     font-family:'Inter',Arial,sans-serif;
@@ -167,11 +187,10 @@
 
 <section class="hero" id="top">
   <div class="hero-slides" id="heroSlides"></div>
+  <div class="hero-btn-wrap">
+    <a href="#catalog" class="btn">Каталог</a>
+  </div>
 </section>
-
-<div class="hero-cta-bar">
-  <a href="#catalog" class="btn">Каталог</a>
-</div>
 
 <script>
   (function(){
