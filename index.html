@@ -99,7 +99,7 @@
   }
   .hero-slide{
     position:absolute;inset:0;
-    background-size:cover;
+    background-size:contain;
     background-repeat:no-repeat;
     background-position:center;
     opacity:0;
@@ -200,22 +200,15 @@
     }
 
     var loaded = 0;
-    var heroEl = document.querySelector('.hero');
-    var ratioSet = false;
     candidatesPerSlide.forEach(function(candidates, i){
       var div = document.createElement('div');
       div.className = 'hero-slide';
       container.appendChild(div);
       slideEls[i] = div;
-      tryLoad(candidates, 0, function(foundUrl, w, h){
+      tryLoad(candidates, 0, function(foundUrl){
         if(foundUrl){
           div.style.backgroundImage = "url('" + foundUrl + "')";
           div.dataset.loaded = '1';
-          if(!ratioSet && w && h){
-            heroEl.style.aspectRatio = w + ' / ' + h;
-            heroEl.style.height = 'auto';
-            ratioSet = true;
-          }
         }
         loaded++;
         if(loaded === candidatesPerSlide.length){
