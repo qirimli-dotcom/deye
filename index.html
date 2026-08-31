@@ -191,7 +191,7 @@
     .hero{
       flex:none;
       width:100%;
-      aspect-ratio:768/1376;
+      aspect-ratio:9/16;
       min-height:0;
     }
     .hero-slide{object-fit:cover;object-position:center top;}
@@ -856,16 +856,26 @@
     }
 
     var loaded = 0;
+    var heroAspectSet = false;
+    var heroEl = document.querySelector('.hero');
     candidatesPerSlide.forEach(function(candidates, i){
       var el = document.createElement('img');
       el.className = 'hero-slide';
       el.alt = '';
       container.appendChild(el);
       slideEls[i] = el;
-      tryLoad(candidates, 0, function(foundUrl){
+      tryLoad(candidates, 0, function(foundUrl, naturalWidth, naturalHeight){
         if(foundUrl){
           el.src = foundUrl;
           el.dataset.loaded = '1';
+          // На мобильном подгоняем форму блока героя под реальные пропорции
+          // ПЕРВОЙ успешно загруженной картинки — автоматически, без жёстко
+          // заданных чисел. Если завтра поменяют картинки на другой формат,
+          // блок сам подстроится под новый размер.
+          if(isMobile && !heroAspectSet && heroEl && naturalWidth && naturalHeight){
+            heroEl.style.aspectRatio = naturalWidth + ' / ' + naturalHeight;
+            heroAspectSet = true;
+          }
         }
         loaded++;
         if(loaded === candidatesPerSlide.length){
