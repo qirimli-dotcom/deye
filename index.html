@@ -247,7 +247,22 @@
     .product-grid{grid-template-columns:repeat(3,1fr);}
   }
   @media(max-width:640px){
-    .product-grid{grid-template-columns:repeat(2,1fr);gap:16px;}
+    .product-grid{
+      display:flex;
+      grid-template-columns:none;
+      overflow-x:auto;
+      gap:14px;
+      padding:4px 4px 12px;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
+    }
+    .product-grid::-webkit-scrollbar{display:none;}
+    .product-card{
+      flex:0 0 auto;
+      width:150px;
+      scroll-snap-align:start;
+    }
   }
 
   .product-card{
