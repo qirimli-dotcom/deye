@@ -16,6 +16,8 @@
     --nav-text:#333333;
     --line:rgba(0,0,0,0.08);
     --wrap:1720px;
+    --ink:#1a1a1a;
+    --muted:#6b6b6b;
   }
 
   *{box-sizing:border-box;}
@@ -187,6 +189,101 @@
     .btn{padding:11px 20px;font-size:13px;}
   }
 
+
+/* ---------- Catalog page ---------- */
+  .catalog-page{
+    background:#ffffff;
+    color:var(--ink);
+    padding:36px 0 56px;
+  }
+  .catalog-head{
+    display:flex;justify-content:space-between;align-items:flex-start;gap:24px;
+    flex-wrap:wrap;
+    margin-bottom:40px;
+  }
+  .catalog-head h1{
+    font-size:clamp(24px,3vw,34px);
+    font-weight:800;
+    margin:0 0 10px;
+    color:var(--ink);
+  }
+  .catalog-head p{
+    margin:0;
+    color:var(--muted);
+    font-size:15px;
+    max-width:640px;
+    line-height:1.5;
+  }
+  .sort-select select{
+    font-family:'Inter',Arial,sans-serif;
+    font-size:13px;
+    color:var(--deye-blue);
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:9px 14px;
+    cursor:pointer;
+  }
+
+  .product-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:24px 20px;
+  }
+  @media(max-width:900px){
+    .product-grid{grid-template-columns:repeat(3,1fr);}
+  }
+  @media(max-width:640px){
+    .product-grid{grid-template-columns:repeat(2,1fr);gap:16px;}
+  }
+
+  .product-card{
+    display:flex;flex-direction:column;
+  }
+  .product-photo{
+    background:#fafafa;
+    border:1px solid #f0f0f0;
+    border-radius:6px;
+    aspect-ratio:4/3;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:12px;
+    padding:10px;
+  }
+  .product-photo svg{width:100%;height:100%;max-width:110px;}
+  .product-price{
+    font-size:13px;
+    color:var(--ink);
+    margin-bottom:4px;
+  }
+  .product-card h3{
+    font-size:13.5px;
+    font-weight:700;
+    margin:0 0 4px;
+    color:var(--ink);
+    line-height:1.3;
+  }
+  .product-spec{
+    font-size:12px;
+    color:var(--muted);
+    margin:0 0 18px;
+  }
+  .btn-outline{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:#111;
+    color:#fff;
+    font-size:12px;
+    font-weight:600;
+    padding:8px 14px;
+    border-radius:4px;
+    width:fit-content;
+    transition:background .2s ease;
+  }
+  .btn-outline:hover{background:var(--deye-blue);}
+
+
+
 </style>
 </head>
 <body>
@@ -222,6 +319,134 @@
     <a href="#catalog" class="btn">Каталог</a>
   </div>
 </section>
+
+<section id="catalog" class="catalog-page">
+  <div class="wrap">
+    <div class="catalog-head">
+      <div>
+        <h1>Гибридные однофазные инверторы</h1>
+        <p>С возможностью подключения солнечных модулей, генератора, АКБ, умной нагрузки, ветрогенератора.</p>
+      </div>
+      <div class="sort-select">
+        <select>
+          <option>Порядок: по умолчанию</option>
+          <option>Сначала дешёвые</option>
+          <option>Сначала дорогие</option>
+          <option>По мощности</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-photo">
+          <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="20" width="120" height="220" rx="10" fill="#f4f5f7" stroke="#c7cbd1" stroke-width="2"/>
+            <rect x="55" y="55" width="90" height="60" rx="4" fill="#ffffff" stroke="#b9bec6" stroke-width="1.5"/>
+            <circle cx="80" cy="85" r="10" fill="#eef1f5" stroke="#9aa2ad" stroke-width="1.2"/>
+            <circle cx="120" cy="85" r="10" fill="#eef1f5" stroke="#9aa2ad" stroke-width="1.2"/>
+            <rect x="55" y="125" width="90" height="40" rx="4" fill="#fbf6e6" stroke="#d8b45a" stroke-width="1.2"/>
+            <path d="M95 138 L100 133 L107 148 L112 143 L118 152" stroke="#c49300" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="60" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <rect x="80" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <rect x="100" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <rect x="120" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <text x="100" y="45" text-anchor="middle" font-family="Inter,Arial" font-size="11" fill="#1c3982" font-weight="700">Deye</text>
+          </svg>
+        </div>
+        <h3>DEYE SUN-5K-SG05LP1-EU-AM2-P</h3>
+        <p class="product-spec">Мощность: 5000 Вт.</p>
+        <a href="#" class="btn-outline">Подробнее</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-photo">
+          <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="20" width="120" height="220" rx="10" fill="#f4f5f7" stroke="#c7cbd1" stroke-width="2"/>
+            <rect x="55" y="55" width="90" height="60" rx="4" fill="#ffffff" stroke="#b9bec6" stroke-width="1.5"/>
+            <circle cx="80" cy="85" r="10" fill="#eef1f5" stroke="#9aa2ad" stroke-width="1.2"/>
+            <circle cx="120" cy="85" r="10" fill="#eef1f5" stroke="#9aa2ad" stroke-width="1.2"/>
+            <rect x="55" y="125" width="90" height="40" rx="4" fill="#fbf6e6" stroke="#d8b45a" stroke-width="1.2"/>
+            <path d="M95 138 L100 133 L107 148 L112 143 L118 152" stroke="#c49300" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="60" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <rect x="80" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <rect x="100" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <rect x="120" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <text x="100" y="45" text-anchor="middle" font-family="Inter,Arial" font-size="11" fill="#1c3982" font-weight="700">Deye</text>
+          </svg>
+        </div>
+        <h3>DEYE SUN-6K-SG05LP1-EU-AM2-P</h3>
+        <p class="product-spec">Мощность: 6000 Вт.</p>
+        <a href="#" class="btn-outline">Подробнее</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-photo">
+          <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="20" width="120" height="220" rx="10" fill="#f4f5f7" stroke="#c7cbd1" stroke-width="2"/>
+            <rect x="55" y="55" width="90" height="60" rx="4" fill="#ffffff" stroke="#b9bec6" stroke-width="1.5"/>
+            <circle cx="80" cy="85" r="10" fill="#eef1f5" stroke="#9aa2ad" stroke-width="1.2"/>
+            <circle cx="120" cy="85" r="10" fill="#eef1f5" stroke="#9aa2ad" stroke-width="1.2"/>
+            <rect x="55" y="125" width="90" height="40" rx="4" fill="#fbf6e6" stroke="#d8b45a" stroke-width="1.2"/>
+            <path d="M95 138 L100 133 L107 148 L112 143 L118 152" stroke="#c49300" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="60" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <rect x="80" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <rect x="100" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <rect x="120" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <text x="100" y="45" text-anchor="middle" font-family="Inter,Arial" font-size="11" fill="#1c3982" font-weight="700">Deye</text>
+          </svg>
+        </div>
+        <h3>DEYE SUN-8K-SG05LP1-EU-AM2-P</h3>
+        <p class="product-spec">Мощность: 8000 Вт.</p>
+        <a href="#" class="btn-outline">Подробнее</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-photo">
+          <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="20" width="120" height="220" rx="10" fill="#f4f5f7" stroke="#c7cbd1" stroke-width="2"/>
+            <rect x="55" y="55" width="90" height="60" rx="4" fill="#ffffff" stroke="#b9bec6" stroke-width="1.5"/>
+            <circle cx="80" cy="85" r="10" fill="#eef1f5" stroke="#9aa2ad" stroke-width="1.2"/>
+            <circle cx="120" cy="85" r="10" fill="#eef1f5" stroke="#9aa2ad" stroke-width="1.2"/>
+            <rect x="55" y="125" width="90" height="40" rx="4" fill="#fbf6e6" stroke="#d8b45a" stroke-width="1.2"/>
+            <path d="M95 138 L100 133 L107 148 L112 143 L118 152" stroke="#c49300" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="60" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <rect x="80" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <rect x="100" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <rect x="120" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <text x="100" y="45" text-anchor="middle" font-family="Inter,Arial" font-size="11" fill="#1c3982" font-weight="700">Deye</text>
+          </svg>
+        </div>
+        <h3>DEYE SUN-10K-SG02LP1-EU-AM3-P</h3>
+        <p class="product-spec">Мощность: 10000 Вт.</p>
+        <a href="#" class="btn-outline">Подробнее</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-photo">
+          <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="20" width="120" height="220" rx="10" fill="#f4f5f7" stroke="#c7cbd1" stroke-width="2"/>
+            <rect x="55" y="55" width="90" height="60" rx="4" fill="#ffffff" stroke="#b9bec6" stroke-width="1.5"/>
+            <circle cx="80" cy="85" r="10" fill="#eef1f5" stroke="#9aa2ad" stroke-width="1.2"/>
+            <circle cx="120" cy="85" r="10" fill="#eef1f5" stroke="#9aa2ad" stroke-width="1.2"/>
+            <rect x="55" y="125" width="90" height="40" rx="4" fill="#fbf6e6" stroke="#d8b45a" stroke-width="1.2"/>
+            <path d="M95 138 L100 133 L107 148 L112 143 L118 152" stroke="#c49300" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="60" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <rect x="80" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <rect x="100" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <rect x="120" y="185" width="14" height="18" rx="2" fill="#2b2f36"/>
+            <text x="100" y="45" text-anchor="middle" font-family="Inter,Arial" font-size="11" fill="#1c3982" font-weight="700">Deye</text>
+          </svg>
+        </div>
+        <h3>DEYE SUN-12K-SG02LP1-EU-AM3-P</h3>
+        <p class="product-spec">Мощность: 12000 Вт.</p>
+        <a href="#" class="btn-outline">Подробнее</a>
+      </div>
+
+    </div></div>
+  </div>
+</section>
+
 
 <script>
   (function(){
