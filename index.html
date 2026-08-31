@@ -34,8 +34,8 @@
   a{color:inherit;text-decoration:none;}
 
   .screen-first{
-    height:100vh;
-    height:100dvh;
+    height:calc(100vh - var(--header-h, 65px));
+    height:calc(100dvh - var(--header-h, 65px));
     display:flex;
     flex-direction:column;
     scroll-snap-align:start;
@@ -201,8 +201,8 @@
     background:#ffffff;
     color:var(--ink);
     padding:28px 0 32px;
-    min-height:100vh;
-    min-height:100dvh;
+    min-height:calc(100vh - var(--header-h, 65px));
+    min-height:calc(100dvh - var(--header-h, 65px));
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -340,7 +340,6 @@
 </head>
 <body>
 
-<div class="screen-first">
 <header id="siteHeader">
   <div class="wrap">
     <a href="#top" class="logo">
@@ -366,6 +365,7 @@
   </div>
 </header>
 
+<div class="screen-first">
 <section class="hero" id="top">
   <div class="hero-slides" id="heroSlides"></div>
   <div class="hero-btn-wrap">
@@ -504,6 +504,19 @@
 
 <script>
   (function(){
+    function setHeaderHeight(){
+      var header = document.getElementById('siteHeader');
+      if(!header) return;
+      document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+    }
+    setHeaderHeight();
+    window.addEventListener('resize', setHeaderHeight);
+    window.addEventListener('load', setHeaderHeight);
+  })();
+</script>
+
+<script>
+  (function(){
     // Пробуем несколько вероятных путей/имён для каждого слайда по очереди.
     // Первый, который реально загрузится, и будет использован.
     var isMobile = window.matchMedia('(max-width: 768px)').matches;
@@ -574,6 +587,8 @@
       menu.classList.toggle('open');
       document.querySelector('.screen-first').classList.toggle('menu-open', menu.classList.contains('open'));
       toggle.textContent = menu.classList.contains('open') ? '✕' : '☰';
+      var header = document.getElementById('siteHeader');
+      if(header) document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
     });
     menu.querySelectorAll('a').forEach(function(a){
       a.addEventListener('click', function(){
