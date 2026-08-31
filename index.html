@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<script>
+  // При обновлении страницы браузер сам запоминает и восстанавливает прежнюю
+  // прокрутку — из-за этого после reload могло открываться сразу на втором
+  // экране (каталоге). Отключаем это и всегда стартуем сверху.
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.addEventListener('load', function(){
+    window.scrollTo(0, 0);
+  });
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <title>DEYE — гибридные инверторы, ESS и солнечные панели в России</title>
@@ -186,15 +197,31 @@
     .phone{display:none;}
     .nav-toggle{display:block;}
     .screen-first{
-      height:calc(100vh - 55px);
-      height:calc(100dvh - 55px);
+      height:auto;
     }
     .hero{
-      flex:1 1 0;
+      flex:none;
       min-height:0;
+      display:block;
+      margin-top:6px;
     }
-    .hero-slide{object-fit:cover;object-position:center top;}
-    .hero-btn-wrap{padding-bottom:16px;}
+    .hero-slides{
+      position:static;
+    }
+    .hero-slide{
+      position:static;
+      display:none;
+      width:100%;
+      height:auto;
+      object-fit:contain;
+    }
+    .hero-slide.is-active{
+      display:block;
+      opacity:1;
+      transition:none;
+    }
+    .hero::after{display:none;}
+    .hero-btn-wrap{padding:16px 0;}
     .btn{padding:11px 20px;font-size:13px;}
   }
 
@@ -903,6 +930,28 @@
         toggle.textContent = '☰';
       });
     });
+  })();
+</script>
+
+<script>
+  // Реальные размеры экрана и шапки — без догадок и захардкоженных цифр.
+  // Считаем ПОСЛЕ полной загрузки страницы, чтобы избежать неправильных
+  // замеров до того, как всё отрисовалось.
+  (function(){
+    var header = document.getElementById('siteHeader');
+    function updateSizes(){
+      document.documentElement.style.setProperty('--real-vh', (window.innerHeight * 0.01) + 'px');
+      if(header){
+        document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+      }
+    }
+    if(document.readyState === 'complete'){
+      updateSizes();
+    } else {
+      window.addEventListener('load', updateSizes);
+    }
+    window.addEventListener('resize', updateSizes);
+    window.addEventListener('orientationchange', updateSizes);
   })();
 </script>
 
