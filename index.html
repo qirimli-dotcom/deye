@@ -201,24 +201,17 @@
     }
     .hero{
       flex:none;
-      min-height:0;
-      display:block;
-      margin-top:6px;
+      min-height:100vh;
+      min-height:100dvh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#e9ebee;
+      padding:48px 0;
+      margin-top:0;
     }
     .hero-slides{
-      position:static;
-    }
-    .hero-slide{
-      position:static;
       display:none;
-      width:100%;
-      height:auto;
-      object-fit:contain;
-    }
-    .hero-slide.is-active{
-      display:block;
-      opacity:1;
-      transition:none;
     }
     .hero::after{display:none;}
     .hero-btn-wrap{padding:16px 0;}
