@@ -2,12 +2,21 @@
 <html lang="ru">
 <head>
 <script>
-  // При обновлении страницы браузер сам запоминает и восстанавливает прежнюю
-  // прокрутку — из-за этого после reload могло открываться сразу на втором
-  // экране (каталоге). Отключаем это и всегда стартуем сверху.
+  // 1) При обновлении страницы браузер сам запоминает и восстанавливает
+  //    прежнюю прокрутку — отключаем это.
+  // 2) Если в адресной строке остался якорь (например, #catalog — после
+  //    нажатия на кнопку "Каталог"), браузер при обновлении страницы сам
+  //    прыгает к этому блоку. Убираем якорь из адреса, чтобы это не происходило.
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
   }
+  if (location.hash) {
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+  window.scrollTo(0, 0);
+  window.addEventListener('DOMContentLoaded', function(){
+    window.scrollTo(0, 0);
+  });
   window.addEventListener('load', function(){
     window.scrollTo(0, 0);
   });
