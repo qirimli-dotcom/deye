@@ -508,14 +508,7 @@
   (function(){
     // Пробуем несколько вероятных путей/имён для каждого слайда по очереди.
     // Первый, который реально загрузится, и будет использован.
-    var isMobile = window.matchMedia('(max-width: 768px)').matches;
-
-    var candidatesPerSlide = isMobile ? [
-      ['img/photo/pic1m.jpeg','img/photo/pic1m.jpg','img/photo/pic1m.png','img/photo/pic1.png','img/photo/pic1.jpeg'],
-      ['img/photo/pic2m.jpeg','img/photo/pic2m.jpg','img/photo/pic2m.png','img/photo/pic2.jpeg','img/photo/pic2.png'],
-      ['img/photo/pic3m.jpeg','img/photo/pic3m.jpg','img/photo/pic3m.png','img/photo/pic3.jpeg','img/photo/pic3.png'],
-      ['img/photo/pic4m.jpeg','img/photo/pic4m.jpg','img/photo/pic4m.png','img/photo/pic4.png','img/photo/pic4.jpeg']
-    ] : [
+    var candidatesPerSlide = [
       ['img/photo/pic1.png','img/photo/pic1.webp','img/photo/pic1.jpeg','img/photo/pic1.jpg','img/slider/slide1.webp','img/banner/banner1.webp'],
       ['img/photo/pic2.png','img/photo/pic2.webp','img/photo/pic2.jpeg','img/photo/pic2.jpg','img/slider/slide2.webp','img/banner/banner2.webp'],
       ['img/photo/pic3.png','img/photo/pic3.webp','img/photo/pic3.jpeg','img/photo/pic3.jpg','img/slider/slide3.webp','img/banner/banner3.webp'],
