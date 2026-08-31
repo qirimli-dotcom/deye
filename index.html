@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <title>DEYE — гибридные инверторы, ESS и солнечные панели в России</title>
 <meta name="description" content="Официальные поставки оборудования DEYE в Россию: гибридные и сетевые инверторы, микроинверторы, аккумуляторы LiFePO4, солнечные панели TOPCON.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -187,7 +187,7 @@
     .phone{display:none;}
     .nav-toggle{display:block;}
     .hero{
-      flex:1 1 auto;
+      flex:1 1 0;
       min-height:180px;
     }
     .hero-slide{object-position:center top;}
@@ -296,27 +296,9 @@
 
   @media(max-width:640px){
     .product-grid{
-      display:flex;
-      overflow-x:auto;
-      gap:0;
-      padding:0;
-      scroll-snap-type:x mandatory;
-      -webkit-overflow-scrolling:touch;
-      scrollbar-width:none;
-    }
-    .product-grid::-webkit-scrollbar{display:none;}
-    .product-card{
-      flex:0 0 100%;
-      width:100%;
-      padding:0 24px;
-      box-sizing:border-box;
-      scroll-snap-align:start;
-      scroll-snap-stop:always;
-    }
-    .product-photo{
-      max-width:220px;
-      margin-left:auto;
-      margin-right:auto;
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:16px;
     }
     .screen-first.menu-open{
       height:auto;
