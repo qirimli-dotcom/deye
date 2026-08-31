@@ -361,10 +361,6 @@
     .product-price{
       font-size:12px;
     }
-    .screen-first.menu-open{
-      height:auto;
-      min-height:100dvh;
-    }
   }
 
 </style>
@@ -895,7 +891,6 @@
     if(!toggle || !menu) return;
     toggle.addEventListener('click', function(){
       menu.classList.toggle('open');
-      document.querySelector('.screen-first').classList.toggle('menu-open', menu.classList.contains('open'));
       toggle.textContent = menu.classList.contains('open') ? '✕' : '☰';
     });
     menu.querySelectorAll('a').forEach(function(a){
