@@ -72,7 +72,7 @@
     min-height:0;
     overflow-y:auto;
     overflow-x:hidden;
-    scroll-snap-type:y proximity;
+    scroll-snap-type:y mandatory;
   }
   a{color:inherit;text-decoration:none;}
 
@@ -208,12 +208,6 @@
     letter-spacing:0.005em;
     margin:0;
   }
-  .hero-sub{
-    max-width:720px;margin-top:28px;
-    font-size:17px;line-height:1.6;color:rgba(255,255,255,0.85);
-  }
-  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px;align-items:center;justify-content:center;}
-
   .btn{
     display:inline-flex;align-items:center;gap:8px;
     background:var(--gold);color:#ffffff;
@@ -323,24 +317,6 @@
     margin:0 0 10px;
     color:var(--ink);
   }
-  .catalog-head p{
-    margin:0;
-    color:var(--muted);
-    font-size:15px;
-    max-width:640px;
-    line-height:1.5;
-  }
-  .sort-select select{
-    font-family:'Inter',Arial,sans-serif;
-    font-size:13px;
-    color:var(--deye-blue);
-    background:#fff;
-    border:1px solid var(--line);
-    border-radius:4px;
-    padding:9px 14px;
-    cursor:pointer;
-  }
-
   .product-grid{
     display:grid;
     grid-template-columns:repeat(7,1fr);
@@ -469,9 +445,6 @@
     .catalog-page{padding:12px 0;justify-content:flex-start;}
     .catalog-head{margin-bottom:7px;gap:10px;}
     .catalog-head h1{font-size:18px;margin-bottom:3px;}
-    .catalog-head p{font-size:12px;line-height:1.35;}
-    .sort-select select{font-size:11px;padding:6px 8px;}
-
     .product-grid{
       display:flex;
       flex-direction:column;
@@ -738,11 +711,6 @@
     font-size:14px;
     line-height:1.55;
     white-space:pre-line;
-  }
-  .pm-price{
-    font-size:18px;font-weight:800;
-    color:var(--deye-blue);
-    margin:0 0 14px;
   }
   .pm-empty{color:var(--muted);}
   .pm-specs{font-size:13.5px;line-height:1.7;}
@@ -1419,27 +1387,6 @@
   })();
 </script>
 
-<script>
-  // Реальные размеры экрана и шапки — без догадок и захардкоженных цифр.
-  // Считаем ПОСЛЕ полной загрузки страницы, чтобы избежать неправильных
-  // замеров до того, как всё отрисовалось.
-  (function(){
-    var header = document.getElementById('siteHeader');
-    function updateSizes(){
-      document.documentElement.style.setProperty('--real-vh', (window.innerHeight * 0.01) + 'px');
-      if(header){
-        document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
-      }
-    }
-    if(document.readyState === 'complete'){
-      updateSizes();
-    } else {
-      window.addEventListener('load', updateSizes);
-    }
-    window.addEventListener('resize', updateSizes);
-    window.addEventListener('orientationchange', updateSizes);
-  })();
-</script>
 
 <div class="cart-overlay" id="cartOverlay"></div>
 <aside class="cart-panel" id="cartPanel" aria-label="Корзина">
@@ -1481,7 +1428,6 @@
   (function(){
     var STORAGE_KEY = 'deye_cart_v2';
     var SALES_EMAIL = 'sales@deye-invertory.ru'; // TODO: заменить на реальный адрес отдела продаж
-    var SALES_PHONE = '+74957788339';
 
     function loadCart(){
       try{
@@ -1657,12 +1603,10 @@
     function openCart(){
       cartOverlay.classList.add('open');
       cartPanel.classList.add('open');
-      document.body.style.overflow = 'hidden';
     }
     function closeCart(){
       cartOverlay.classList.remove('open');
       cartPanel.classList.remove('open');
-      document.body.style.overflow = '';
       // если панель успеха была показана — вернуть обычный вид к следующему открытию
       cartSuccessEl.classList.remove('show');
       cartBodyEl.style.display = 'block';
@@ -1736,25 +1680,6 @@
   })();
 </script>
 
-<script>
-  // Реальная высота шапки: она отличается на разных устройствах,
-  // а от неё зависит высота первого блока (экран минус шапка).
-  (function(){
-    var header = document.querySelector('header');
-    if(!header) return;
-    function setHdr(){
-      document.documentElement.style.setProperty('--hdr', header.offsetHeight + 'px');
-      // Реальная высота видимой области: svh/dvh на мобильных не совпадают
-      // с фактическим экраном, из-за чего снизу проглядывал следующий блок
-      document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
-    }
-    setHdr();
-    window.addEventListener('load', setHdr);
-    window.addEventListener('resize', setHdr);
-    window.addEventListener('orientationchange', setHdr);
-    if(window.ResizeObserver){ new ResizeObserver(setHdr).observe(header); }
-  })();
-</script>
 
 <div class="pm-overlay" id="pmOverlay"></div>
 <div class="pm-box" id="pmBox" role="dialog" aria-label="Информация о товаре">
@@ -1897,12 +1822,10 @@ var SPEC_TEXT = {"DEYE SUN-5K-SG05LP1-EU-AM2-P": "ОСНОВНЫЕ ХАРАКТ�
 
     overlay.classList.add('open');
     box.classList.add('open');
-    document.body.style.overflow = 'hidden';
   }
   function closeModal(){
     overlay.classList.remove('open');
     box.classList.remove('open');
-    document.body.style.overflow = '';
   }
   overlay.addEventListener('click', closeModal);
   closeBtn.addEventListener('click', closeModal);
