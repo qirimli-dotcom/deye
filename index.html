@@ -20,7 +20,16 @@
   }
   jumpTop();
   window.addEventListener('DOMContentLoaded', jumpTop);
-  window.addEventListener('load', jumpTop);
+  window.addEventListener('load', function(){
+    jumpTop();
+    // Safari на iOS восстанавливает прокрутку с задержкой, уже после load
+    setTimeout(jumpTop, 50);
+    setTimeout(jumpTop, 200);
+    setTimeout(jumpTop, 500);
+  });
+  window.addEventListener('pageshow', function(e){
+    if (e.persisted) jumpTop();
+  });
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
@@ -255,6 +264,9 @@
   .mobile-nav a.phone{color:var(--deye-blue);font-weight:600;border-bottom:none;}
 
   @media(max-width:768px){
+    html{scroll-snap-type:none;}
+    .screen-first{scroll-snap-align:none;scroll-snap-stop:normal;}
+    .catalog-page{scroll-snap-align:none;scroll-snap-stop:normal;}
     header{padding:10px 0;}
     header .wrap{padding:0 16px;}
     .logo img{height:24px;}
