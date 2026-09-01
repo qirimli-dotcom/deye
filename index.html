@@ -205,6 +205,26 @@
   }
   .btn:hover{background:transparent;color:var(--gold-soft);transform:translateY(-1px);}
 
+  .cart-btn{
+    position:relative;
+    display:inline-flex;align-items:center;justify-content:center;
+    width:38px;height:38px;
+    background:none;border:none;
+    color:var(--deye-blue);cursor:pointer;
+    flex:none;
+  }
+  .cart-btn svg{width:22px;height:22px;}
+  .cart-badge{
+    position:absolute;top:-2px;right:-2px;
+    background:#c0392b;color:#fff;
+    font-size:11px;font-weight:700;
+    min-width:17px;height:17px;
+    border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    padding:0 3px;
+    line-height:1;
+  }
+
   .nav-toggle{
     display:none;
     background:none;border:none;
@@ -377,6 +397,21 @@
 
 
 
+  .add-cart-btn{
+    margin-top:12px;
+    width:100%;
+    background:var(--deye-blue);
+    color:#fff;
+    border:none;
+    padding:10px 14px;
+    border-radius:6px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    transition:background .2s ease;
+  }
+  .add-cart-btn:hover{background:#152c66;}
+  .add-cart-btn.is-added{background:#1f9d55;}
   @media(max-width:640px){
     .catalog-page{padding:16px 0;justify-content:flex-start;}
     .catalog-head{margin-bottom:12px;gap:10px;}
@@ -424,6 +459,118 @@
     }
   }
 
+  /* ---------- Cart ---------- */
+  .cart-overlay{
+    display:none;
+    position:fixed;inset:0;
+    background:rgba(6,8,11,.72);
+    z-index:300;
+  }
+  .cart-overlay.open{display:block;}
+  .cart-panel{
+    position:fixed;top:0;right:0;bottom:0;
+    width:min(400px, 100%);
+    background:#fff;
+    z-index:301;
+    display:flex;flex-direction:column;
+    transform:translateX(100%);
+    transition:transform .3s ease;
+    box-shadow:-12px 0 32px rgba(0,0,0,.15);
+  }
+  .cart-panel.open{transform:translateX(0);}
+  .cart-panel-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 20px;
+    border-bottom:1px solid var(--line);
+    flex:none;
+  }
+  .cart-panel-head h2{font-size:18px;font-weight:800;margin:0;}
+  .cart-close{
+    background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);
+    width:32px;height:32px;
+  }
+  .cart-items{
+    flex:1 1 auto;
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding:12px 20px;
+  }
+  .cart-item{
+    display:flex;align-items:flex-start;justify-content:space-between;
+    gap:10px;
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .cart-item > div:first-child{
+    min-width:0;
+    flex:1 1 auto;
+  }
+  .cart-item-name{font-size:13.5px;font-weight:700;margin:0 0 2px;overflow-wrap:break-word;}
+  .cart-item-spec{font-size:12px;color:var(--muted);margin:0 0 8px;overflow-wrap:break-word;}
+  .cart-item-qty{
+    display:flex;align-items:center;gap:8px;
+  }
+  .cart-qty-btn{
+    width:26px;height:26px;
+    border:1px solid var(--line);
+    background:#fff;border-radius:5px;
+    font-size:15px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cart-item-remove{
+    background:none;border:none;color:var(--muted);
+    font-size:12px;text-decoration:underline;
+    cursor:pointer;padding:0;margin-top:6px;
+  }
+  .cart-item-price{font-size:13px;font-weight:700;white-space:nowrap;flex:none;}
+  .cart-empty{
+    padding:40px 20px;text-align:center;color:var(--muted);font-size:14px;
+  }
+  .cart-footer{
+    flex:none;
+    border-top:1px solid var(--line);
+    padding:16px 20px 20px;
+  }
+  .cart-total-row{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-size:15px;font-weight:700;
+    margin-bottom:14px;
+  }
+  .cart-total-row span:last-child{font-size:19px;}
+  .cart-form label{
+    display:block;font-size:12px;color:var(--muted);margin:0 0 4px;
+  }
+  .cart-form input,.cart-form textarea{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    font-size:14px;
+    font-family:inherit;
+    margin-bottom:12px;
+  }
+  .cart-submit{
+    width:100%;
+    display:block;
+    background:var(--deye-blue);
+    color:#fff;
+    border:none;
+    padding:13px 14px;
+    border-radius:6px;
+    font-size:14.5px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .cart-submit:hover{background:#152c66;}
+  .cart-success{
+    display:none;
+    padding:30px 20px;text-align:center;
+  }
+  .cart-success.show{display:block;}
+  .cart-success svg{width:48px;height:48px;color:#1f9d55;margin-bottom:12px;}
+  .cart-success h3{font-size:16px;margin:0 0 8px;}
+  .cart-success p{font-size:13.5px;color:var(--muted);margin:0;}
+
 </style>
 </head>
 <body>
@@ -448,6 +595,10 @@
     <div class="header-cta">
       <a class="phone" href="tel:+74957788339">+7 495 778‑83‑39</a>
     </div>
+    <button class="cart-btn" id="cartBtn" aria-label="Корзина" title="Корзина">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 4h2l1.6 9.6A2 2 0 0 0 8.57 15.2h8.86a2 2 0 0 0 1.97-1.66L20.5 7.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19.5" r="1.4" fill="currentColor"/><circle cx="17" cy="19.5" r="1.4" fill="currentColor"/></svg>
+      <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
+    </button>
     <button class="nav-toggle" id="navToggle" aria-label="Меню">☰</button>
   </div>
   <div class="mobile-nav" id="mobileNav">
@@ -507,6 +658,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-5K-SG05LP1-EU-AM2-P" data-spec="Мощность: 5 кВт">В корзину</button>
       </div>
 
       <div class="product-card">
@@ -538,6 +690,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-6K-SG05LP1-EU-AM2-P" data-spec="Мощность: 6 кВт">В корзину</button>
       </div>
 
       <div class="product-card">
@@ -569,6 +722,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-8K-SG05LP1-EU-AM2-P" data-spec="Мощность: 8 кВт">В корзину</button>
       </div>
 
       <div class="product-card">
@@ -600,6 +754,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-10K-SG02LP1-EU-AM3-P" data-spec="Мощность: 10 кВт">В корзину</button>
       </div>
 
       <div class="product-card">
@@ -631,6 +786,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-12K-SG02LP1-EU-AM3-P" data-spec="Мощность: 12 кВт">В корзину</button>
       </div>
 
     </div></div>
@@ -675,6 +831,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-10K-SG05LP3-EU-SM2" data-spec="Мощность: 10 кВт · Трёхфазный">В корзину</button>
       </div>
       <div class="product-card">
         <div class="product-photo">
@@ -705,6 +862,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-12K-SG05LP3-EU-SM2" data-spec="Мощность: 12 кВт · Трёхфазный">В корзину</button>
       </div>
       <div class="product-card">
         <div class="product-photo">
@@ -735,6 +893,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-14K-SG05LP3-EU-SM2" data-spec="Мощность: 14 кВт · Трёхфазный">В корзину</button>
       </div>
       <div class="product-card">
         <div class="product-photo">
@@ -765,6 +924,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-15K-SG05LP3-EU-SM2" data-spec="Мощность: 15 кВт · Трёхфазный">В корзину</button>
       </div>
       <div class="product-card">
         <div class="product-photo">
@@ -795,6 +955,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-16K-SG05LP3-EU-SM2" data-spec="Мощность: 16 кВт · Трёхфазный">В корзину</button>
       </div>
       <div class="product-card">
         <div class="product-photo">
@@ -825,6 +986,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-18K-SG05LP3-EU-SM2" data-spec="Мощность: 18 кВт · Трёхфазный">В корзину</button>
       </div>
       <div class="product-card">
         <div class="product-photo">
@@ -855,6 +1017,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-20K-SG05LP3-EU-SM2" data-spec="Мощность: 20 кВт · Трёхфазный">В корзину</button>
       </div>
     </div>
   </div>
@@ -971,6 +1134,277 @@
     }
     window.addEventListener('resize', updateSizes);
     window.addEventListener('orientationchange', updateSizes);
+  })();
+</script>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-panel" id="cartPanel" aria-label="Корзина">
+  <div class="cart-panel-head">
+    <h2>Корзина</h2>
+    <button type="button" class="cart-close" id="cartClose" aria-label="Закрыть">✕</button>
+  </div>
+
+  <div id="cartBody">
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-empty" id="cartEmpty">Корзина пуста. Добавьте товары из каталога.</div>
+
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-total-row">
+        <span>Итого</span>
+        <span id="cartTotal">0,00 ₽</span>
+      </div>
+      <form id="cartForm">
+        <label for="cartName">Имя</label>
+        <input type="text" id="cartName" name="name" placeholder="Как к вам обращаться" required>
+        <label for="cartPhone">Телефон</label>
+        <input type="tel" id="cartPhone" name="phone" placeholder="+7 ___ ___-__-__" required>
+        <label for="cartComment">Комментарий (необязательно)</label>
+        <textarea id="cartComment" name="comment" rows="2" placeholder="Например: нужна доставка в Крым"></textarea>
+        <button type="submit" class="cart-submit">Оформить заявку</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="cart-success" id="cartSuccess">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <h3>Заявка отправлена</h3>
+    <p>Мы свяжемся с вами в ближайшее время для уточнения деталей заказа.</p>
+  </div>
+</aside>
+
+<script>
+  (function(){
+    var STORAGE_KEY = 'deye_cart_v1';
+    var SALES_EMAIL = 'sales@deye-invertory.ru'; // TODO: заменить на реальный адрес отдела продаж
+    var SALES_PHONE = '+74957788339';
+
+    function loadCart(){
+      try{
+        var raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      }catch(e){ return []; }
+    }
+    function saveCart(cart){
+      try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); }catch(e){}
+    }
+    function parsePrice(text){
+      // "0,00 ₽" -> 0
+      var digits = (text || '0').replace(/[^\d,.-]/g, '').replace(',', '.');
+      var n = parseFloat(digits);
+      return isNaN(n) ? 0 : n;
+    }
+    function formatPrice(n){
+      return n.toLocaleString('ru-RU', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' ₽';
+    }
+
+    var cart = loadCart();
+
+    var cartBtn = document.getElementById('cartBtn');
+    var cartBadge = document.getElementById('cartBadge');
+    var cartOverlay = document.getElementById('cartOverlay');
+    var cartPanel = document.getElementById('cartPanel');
+    var cartClose = document.getElementById('cartClose');
+    var cartItemsEl = document.getElementById('cartItems');
+    var cartEmptyEl = document.getElementById('cartEmpty');
+    var cartFooterEl = document.getElementById('cartFooter');
+    var cartTotalEl = document.getElementById('cartTotal');
+    var cartForm = document.getElementById('cartForm');
+    var cartSuccessEl = document.getElementById('cartSuccess');
+    var cartBodyEl = document.getElementById('cartBody');
+
+    function updateBadge(){
+      var count = cart.reduce(function(sum, item){ return sum + item.qty; }, 0);
+      if(count > 0){
+        cartBadge.textContent = count;
+        cartBadge.style.display = 'flex';
+      } else {
+        cartBadge.style.display = 'none';
+      }
+    }
+
+    function renderCart(){
+      cartItemsEl.innerHTML = '';
+      if(cart.length === 0){
+        cartEmptyEl.style.display = 'block';
+        cartFooterEl.style.display = 'none';
+        updateBadge();
+        return;
+      }
+      cartEmptyEl.style.display = 'none';
+      cartFooterEl.style.display = 'block';
+
+      var total = 0;
+      cart.forEach(function(item, idx){
+        total += item.price * item.qty;
+
+        var row = document.createElement('div');
+        row.className = 'cart-item';
+
+        var info = document.createElement('div');
+        var nameEl = document.createElement('p');
+        nameEl.className = 'cart-item-name';
+        nameEl.textContent = item.name;
+        var specEl = document.createElement('p');
+        specEl.className = 'cart-item-spec';
+        specEl.textContent = item.spec;
+
+        var qtyRow = document.createElement('div');
+        qtyRow.className = 'cart-item-qty';
+
+        var minusBtn = document.createElement('button');
+        minusBtn.type = 'button';
+        minusBtn.className = 'cart-qty-btn';
+        minusBtn.textContent = '−';
+        minusBtn.addEventListener('click', function(){ changeQty(idx, -1); });
+
+        var qtyText = document.createElement('span');
+        qtyText.textContent = item.qty;
+
+        var plusBtn = document.createElement('button');
+        plusBtn.type = 'button';
+        plusBtn.className = 'cart-qty-btn';
+        plusBtn.textContent = '+';
+        plusBtn.addEventListener('click', function(){ changeQty(idx, 1); });
+
+        qtyRow.appendChild(minusBtn);
+        qtyRow.appendChild(qtyText);
+        qtyRow.appendChild(plusBtn);
+
+        var removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'cart-item-remove';
+        removeBtn.textContent = 'Удалить';
+        removeBtn.addEventListener('click', function(){ removeItem(idx); });
+
+        info.appendChild(nameEl);
+        info.appendChild(specEl);
+        info.appendChild(qtyRow);
+        info.appendChild(removeBtn);
+
+        var priceEl = document.createElement('div');
+        priceEl.className = 'cart-item-price';
+        priceEl.textContent = formatPrice(item.price * item.qty);
+
+        row.appendChild(info);
+        row.appendChild(priceEl);
+        cartItemsEl.appendChild(row);
+      });
+
+      cartTotalEl.textContent = formatPrice(total);
+      updateBadge();
+    }
+
+    function addToCart(name, spec, price){
+      var existing = cart.find(function(item){ return item.name === name; });
+      if(existing){
+        existing.qty += 1;
+      } else {
+        cart.push({name:name, spec:spec, price:price, qty:1});
+      }
+      saveCart(cart);
+      renderCart();
+    }
+    function changeQty(idx, delta){
+      if(!cart[idx]) return;
+      cart[idx].qty += delta;
+      if(cart[idx].qty <= 0){
+        cart.splice(idx, 1);
+      }
+      saveCart(cart);
+      renderCart();
+    }
+    function removeItem(idx){
+      cart.splice(idx, 1);
+      saveCart(cart);
+      renderCart();
+    }
+
+    function openCart(){
+      cartOverlay.classList.add('open');
+      cartPanel.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCart(){
+      cartOverlay.classList.remove('open');
+      cartPanel.classList.remove('open');
+      document.body.style.overflow = '';
+      // если панель успеха была показана — вернуть обычный вид к следующему открытию
+      cartSuccessEl.classList.remove('show');
+      cartBodyEl.style.display = 'block';
+    }
+
+    if(cartBtn){ cartBtn.addEventListener('click', openCart); }
+    if(cartClose){ cartClose.addEventListener('click', closeCart); }
+    if(cartOverlay){ cartOverlay.addEventListener('click', closeCart); }
+
+    // Кнопки "В корзину" на карточках товаров
+    document.querySelectorAll('.add-cart-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var card = btn.closest('.product-card');
+        var priceEl = card ? card.querySelector('.product-price') : null;
+        var name = btn.getAttribute('data-name') || '';
+        var spec = btn.getAttribute('data-spec') || '';
+        var price = priceEl ? parsePrice(priceEl.textContent) : 0;
+        addToCart(name, spec, price);
+
+        btn.textContent = 'Добавлено ✓';
+        btn.classList.add('is-added');
+        setTimeout(function(){
+          btn.textContent = 'В корзину';
+          btn.classList.remove('is-added');
+        }, 1200);
+
+        openCart();
+      });
+    });
+
+    // Отправка заявки
+    if(cartForm){
+      cartForm.addEventListener('submit', function(e){
+        e.preventDefault();
+        if(cart.length === 0) return;
+
+        var name = document.getElementById('cartName').value.trim();
+        var phone = document.getElementById('cartPhone').value.trim();
+        var comment = document.getElementById('cartComment').value.trim();
+
+        var lines = cart.map(function(item){
+          return '- ' + item.name + ' (' + item.spec + '), кол-во: ' + item.qty;
+        });
+        var total = cart.reduce(function(sum, item){ return sum + item.price * item.qty; }, 0);
+
+        var bodyLines = [
+          'Новая заявка с сайта DEYE',
+          '',
+          'Имя: ' + name,
+          'Телефон: ' + phone,
+          comment ? ('Комментарий: ' + comment) : '',
+          '',
+          'Состав заказа:',
+          lines.join('\n'),
+          '',
+          'Итого: ' + formatPrice(total)
+        ].filter(Boolean).join('\n');
+
+        var subject = 'Заявка с сайта — ' + name;
+        var mailtoUrl = 'mailto:' + SALES_EMAIL
+          + '?subject=' + encodeURIComponent(subject)
+          + '&body=' + encodeURIComponent(bodyLines);
+
+        // Открываем почтовый клиент пользователя с готовым письмом
+        window.location.href = mailtoUrl;
+
+        // Показываем экран "заявка отправлена" и очищаем корзину
+        cartBodyEl.style.display = 'none';
+        cartSuccessEl.classList.add('show');
+        cart = [];
+        saveCart(cart);
+        updateBadge();
+        cartForm.reset();
+      });
+    }
+
+    renderCart();
   })();
 </script>
 
