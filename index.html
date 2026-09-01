@@ -264,9 +264,7 @@
   .mobile-nav a.phone{color:var(--deye-blue);font-weight:600;border-bottom:none;}
 
   @media(max-width:768px){
-    html{scroll-snap-type:none;}
-    .screen-first{scroll-snap-align:none;scroll-snap-stop:normal;}
-    .catalog-page{scroll-snap-align:none;scroll-snap-stop:normal;}
+    /* --- Шапка --- */
     header{padding:10px 0;}
     header .wrap{padding:0 16px;}
     .logo img{height:24px;}
@@ -274,28 +272,30 @@
     .phone{display:none;}
     .nav-toggle{display:block;}
     .cart-btn.has-items{color:var(--deye-blue);}
+
+    /* --- Перелистывание блоков --- */
+    html{scroll-snap-type:y mandatory;}
     .screen-first{
       height:auto;
+      scroll-snap-align:start;
+      scroll-snap-stop:always;
+      scroll-margin-top:59px;
     }
+    .catalog-page{scroll-snap-align:start;scroll-snap-stop:always;}
+
+    /* --- Первый экран: серый фон + кнопка снизу --- */
     .hero{
-      position:relative;
-      flex:none;
       width:100%;
       min-height:calc(100vh - 59px);
-      min-height:calc(100dvh - 59px);
       min-height:calc(100svh - 59px);
       display:flex;
       align-items:flex-end;
       justify-content:center;
       background:#e9ebee;
-      overflow:hidden;
       padding:0 0 56px;
-      margin:0;
-    }
-    .hero-slides{
-      display:none;
     }
     .hero::after{display:none;}
+    .hero-slides{display:none;}
     .hero-btn-wrap{padding:0;}
     .btn{padding:11px 20px;font-size:13px;}
   }
