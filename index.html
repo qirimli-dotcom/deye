@@ -13,10 +13,18 @@
   }
   function jumpTop(){
     var de = document.documentElement;
-    var prev = de.style.scrollBehavior;
+    var prevBehavior = de.style.scrollBehavior;
+    // Снап отключаем на время сброса: иначе он утягивает страницу
+    // к ближайшему блоку раньше, чем мы вернёмся наверх
     de.style.scrollBehavior = 'auto';
+    de.style.scrollSnapType = 'none';
     window.scrollTo(0, 0);
-    de.style.scrollBehavior = prev;
+    if (document.body) document.body.scrollTop = 0;
+    de.scrollTop = 0;
+    de.style.scrollBehavior = prevBehavior;
+  }
+  function restoreSnap(){
+    document.documentElement.style.scrollSnapType = '';
   }
   jumpTop();
   window.addEventListener('DOMContentLoaded', jumpTop);
@@ -25,10 +33,10 @@
     // Safari на iOS восстанавливает прокрутку с задержкой, уже после load
     setTimeout(jumpTop, 50);
     setTimeout(jumpTop, 200);
-    setTimeout(jumpTop, 500);
+    setTimeout(function(){ jumpTop(); restoreSnap(); }, 500);
   });
   window.addEventListener('pageshow', function(e){
-    if (e.persisted) jumpTop();
+    if (e.persisted){ jumpTop(); setTimeout(restoreSnap, 400); }
   });
 </script>
 <meta charset="UTF-8">
@@ -64,13 +72,13 @@
   a{color:inherit;text-decoration:none;}
 
   .screen-first{
-    height:100vh;
-    height:100dvh;
+    height:calc(100vh - var(--hdr, 70px));
+    height:calc(100svh - var(--hdr, 70px));
     display:flex;
     flex-direction:column;
     scroll-snap-align:start;
     scroll-snap-stop:always;
-    scroll-margin-top:70px;
+    scroll-margin-top:var(--hdr, 70px);
   }
   .wrap{max-width:var(--wrap);margin:0 auto;padding:0 40px;}
   @media(max-width:640px){.wrap{padding:0 20px;}}
@@ -306,25 +314,16 @@
     background:#ffffff;
     color:var(--ink);
     padding:28px 0 32px;
-    min-height:100vh;
-    min-height:100dvh;
+    min-height:calc(100vh - var(--hdr, 66px));
+    min-height:calc(100svh - var(--hdr, 66px));
     display:flex;
     flex-direction:column;
     justify-content:flex-start;
     scroll-snap-align:start;
     scroll-snap-stop:always;
-    scroll-margin-top:66px;
+    scroll-margin-top:var(--hdr, 66px);
   }
   .catalog-page > .wrap{width:100%;}
-  /* Отступ снап-точки под sticky-шапку: высота шапки меняется по брейкпоинтам,
-     поэтому и запас под неё разный. Важно, что эти правила идут ПОСЛЕ базового,
-     иначе каскад CSS их не применит на узких экранах. */
-  @media(max-width:900px){
-    .catalog-page{scroll-margin-top:100px;}
-  }
-  @media(max-width:768px){
-    .catalog-page{scroll-margin-top:55px;}
-  }
   .catalog-head{
     display:flex;justify-content:space-between;align-items:flex-start;gap:24px;
     flex-wrap:wrap;
@@ -356,7 +355,7 @@
 
   .product-grid{
     display:grid;
-    grid-template-columns:repeat(5,1fr);
+    grid-template-columns:repeat(7,1fr);
     gap:20px 16px;
   }
   @media(max-width:1100px){
