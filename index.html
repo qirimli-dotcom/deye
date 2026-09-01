@@ -74,6 +74,7 @@
   .screen-first{
     height:calc(100vh - var(--hdr, 70px));
     height:calc(100svh - var(--hdr, 70px));
+    height:calc(var(--vh, 1vh) * 100 - var(--hdr, 70px));
     display:flex;
     flex-direction:column;
     scroll-snap-align:start;
@@ -296,6 +297,7 @@
       width:100%;
       min-height:calc(100vh - var(--hdr, 59px));
       min-height:calc(100svh - var(--hdr, 59px));
+      min-height:calc(var(--vh, 1vh) * 100 - var(--hdr, 59px));
       display:flex;
       align-items:flex-end;
       justify-content:center;
@@ -316,6 +318,7 @@
     padding:28px 0 32px;
     min-height:calc(100vh - var(--hdr, 66px));
     min-height:calc(100svh - var(--hdr, 66px));
+    min-height:calc(var(--vh, 1vh) * 100 - var(--hdr, 66px));
     display:flex;
     flex-direction:column;
     justify-content:flex-start;
@@ -1687,6 +1690,9 @@
     if(!header) return;
     function setHdr(){
       document.documentElement.style.setProperty('--hdr', header.offsetHeight + 'px');
+      // Реальная высота видимой области: svh/dvh на мобильных не совпадают
+      // с фактическим экраном, из-за чего снизу проглядывал следующий блок
+      document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
     }
     setHdr();
     window.addEventListener('load', setHdr);
