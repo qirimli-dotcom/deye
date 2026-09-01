@@ -274,9 +274,21 @@
       background:#e9ebee;
       padding:48px 0;
       margin-top:0;
+      position:relative;
+      overflow:hidden;
     }
     .hero-slides{
-      display:none;
+      display:block;
+      position:absolute;
+      inset:0;
+    }
+    .hero-slide{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      object-position:center center;
     }
     .hero::after{display:none;}
     .hero-btn-wrap{padding:16px 0;}
@@ -1184,29 +1196,32 @@
 
 <script>
   (function(){
-    // На мобильных используем отдельные баннеры с окончанием "m" (pic1m.jpeg и т.д.),
-    // на десктопе — обычные файлы. Если нужного варианта нет — пробуем остальные по очереди.
+    // На мобильных — свой слайдер из pic5m/pic6m, на десктопе — обычные 4 баннера.
     var isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-    var candidatesPerSlide = [1, 2, 3, 4].map(function(n){
-      var mobileFirst = [
-        'img/photo/pic' + n + 'm.jpeg',
-        'img/photo/pic' + n + 'm.jpg',
-        'img/photo/pic' + n + 'm.png',
-        'img/photo/pic' + n + 'm.webp'
-      ];
-      var desktopFirst = [
-        'img/photo/pic' + n + '.png',
-        'img/photo/pic' + n + '.webp',
-        'img/photo/pic' + n + '.jpeg',
-        'img/photo/pic' + n + '.jpg'
-      ];
-      var fallback = [
-        'img/slider/slide' + n + '.webp',
-        'img/banner/banner' + n + '.webp'
-      ];
-      return (isMobile ? mobileFirst.concat(desktopFirst) : desktopFirst.concat(mobileFirst)).concat(fallback);
-    });
+    var candidatesPerSlide;
+
+    if(isMobile){
+      candidatesPerSlide = [5, 6].map(function(n){
+        return [
+          'img/photo/pic' + n + 'm.png',
+          'img/photo/pic' + n + 'm.jpg',
+          'img/photo/pic' + n + 'm.jpeg',
+          'img/photo/pic' + n + 'm.webp'
+        ];
+      });
+    } else {
+      candidatesPerSlide = [1, 2, 3, 4].map(function(n){
+        return [
+          'img/photo/pic' + n + '.png',
+          'img/photo/pic' + n + '.webp',
+          'img/photo/pic' + n + '.jpeg',
+          'img/photo/pic' + n + '.jpg',
+          'img/slider/slide' + n + '.webp',
+          'img/banner/banner' + n + '.webp'
+        ];
+      });
+    }
 
     var container = document.getElementById('heroSlides');
     var slideEls = [];
