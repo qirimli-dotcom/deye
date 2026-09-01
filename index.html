@@ -259,6 +259,7 @@
     nav{display:none;}
     .phone{display:none;}
     .nav-toggle{display:block;}
+    .cart-btn.has-items{color:var(--deye-blue);}
     .screen-first{
       height:auto;
     }
@@ -561,17 +562,32 @@
   }
   .cart-total-row span:last-child{font-size:19px;}
   .cart-form label{
-    display:block;font-size:12px;color:var(--muted);margin:0 0 4px;
+    display:block;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 7px;
   }
+  .req-star{color:#c0392b;}
   .cart-form input,.cart-form textarea{
     width:100%;
-    padding:10px 12px;
-    border:1px solid var(--line);
-    border-radius:6px;
-    font-size:14px;
+    padding:13px 14px;
+    border:1.5px solid var(--line);
+    border-radius:8px;
+    font-size:14.5px;
     font-family:inherit;
-    margin-bottom:12px;
+    margin-bottom:18px;
+    transition:border-color .15s ease, box-shadow .15s ease;
   }
+  .cart-form input::placeholder,.cart-form textarea::placeholder{color:#b9bec6;}
+  .cart-form input:focus,.cart-form textarea:focus{
+    outline:none;
+    border-color:var(--deye-blue);
+    box-shadow:0 0 0 3px rgba(26,58,138,.12);
+  }
+  .cart-form textarea{resize:vertical;min-height:70px;}
   .cart-submit{
     width:100%;
     display:block;
@@ -1178,16 +1194,6 @@
         <span>Итого</span>
         <span id="cartTotal">0,00 ₽</span>
       </div>
-      <button type="button" class="cart-submit" id="cartCheckoutBtn">Оформить заявку</button>
-      <form id="cartForm" style="display:none;">
-        <label for="cartName">Имя</label>
-        <input type="text" id="cartName" name="name" placeholder="Как к вам обращаться" required>
-        <label for="cartPhone">Телефон</label>
-        <input type="tel" id="cartPhone" name="phone" placeholder="+7 ___ ___-__-__" required>
-        <label for="cartEmail">Email (необязательно)</label>
-        <input type="email" id="cartEmail" name="email" placeholder="example@mail.ru">
-        <button type="submit" class="cart-submit">Оформить заказ</button>
-      </form>
     </div>
   </div>
 
@@ -1242,7 +1248,6 @@
     var cartEmptyEl = document.getElementById('cartEmpty');
     var cartFooterEl = document.getElementById('cartFooter');
     var cartTotalEl = document.getElementById('cartTotal');
-    var cartForm = document.getElementById('cartForm');
     var cartCheckoutBtn = document.getElementById('cartCheckoutBtn');
     var cartSuccessEl = document.getElementById('cartSuccess');
     var cartBodyEl = document.getElementById('cartBody');
@@ -1259,12 +1264,28 @@
       }
     }
 
+    function syncAddButtons(){
+      document.querySelectorAll('.add-cart-btn').forEach(function(btn){
+        var name = btn.getAttribute('data-name') || '';
+        var inCart = cart.some(function(item){ return item.name === name; });
+        var textSpan = btn.querySelector('.add-cart-text');
+        if(inCart){
+          btn.classList.add('is-added');
+          if(textSpan) textSpan.textContent = 'Добавлено ✓';
+        } else {
+          btn.classList.remove('is-added');
+          if(textSpan) textSpan.textContent = 'В корзину';
+        }
+      });
+    }
+
     function renderCart(){
       cartItemsEl.innerHTML = '';
       if(cart.length === 0){
         cartEmptyEl.style.display = 'block';
         cartFooterEl.style.display = 'none';
         updateBadge();
+        syncAddButtons();
         return;
       }
       cartEmptyEl.style.display = 'none';
@@ -1329,6 +1350,7 @@
 
       cartTotalEl.textContent = formatPrice(total);
       updateBadge();
+      syncAddButtons();
     }
 
     function addToCart(name, spec, price){
@@ -1368,21 +1390,11 @@
       // если панель успеха была показана — вернуть обычный вид к следующему открытию
       cartSuccessEl.classList.remove('show');
       cartBodyEl.style.display = 'block';
-      if(cartForm){ cartForm.style.display = 'none'; }
-      if(cartCheckoutBtn){ cartCheckoutBtn.style.display = 'block'; }
     }
 
     if(cartBtn){ cartBtn.addEventListener('click', openCart); }
     if(cartClose){ cartClose.addEventListener('click', closeCart); }
     if(cartOverlay){ cartOverlay.addEventListener('click', closeCart); }
-    if(cartCheckoutBtn){
-      cartCheckoutBtn.addEventListener('click', function(){
-        cartCheckoutBtn.style.display = 'none';
-        cartForm.style.display = 'block';
-        var firstInput = document.getElementById('cartName');
-        if(firstInput) firstInput.focus();
-      });
-    }
 
     // Кнопки "В корзину" на карточках товаров
     document.querySelectorAll('.add-cart-btn').forEach(function(btn){
@@ -1394,31 +1406,14 @@
         var price = priceEl ? parsePrice(priceEl.textContent) : 0;
         addToCart(name, spec, price);
 
-        var textSpan = btn.querySelector('.add-cart-text');
-        var originalText = textSpan ? textSpan.textContent : '';
-
-        btn.classList.add('is-added');
-        if(textSpan) textSpan.textContent = 'Добавлено ✓';
-
-        clearTimeout(btn._addedTimer);
-        btn._addedTimer = setTimeout(function(){
-          btn.classList.remove('is-added');
-          if(textSpan) textSpan.textContent = originalText;
-        }, 1200);
-
         openCart();
       });
     });
 
     // Отправка заявки
-    if(cartForm){
-      cartForm.addEventListener('submit', function(e){
-        e.preventDefault();
+    if(cartCheckoutBtn){
+      cartCheckoutBtn.addEventListener('click', function(){
         if(cart.length === 0) return;
-
-        var name = document.getElementById('cartName').value.trim();
-        var phone = document.getElementById('cartPhone').value.trim();
-        var email = document.getElementById('cartEmail').value.trim();
 
         var lines = cart.map(function(item){
           return '- ' + item.name + ' (' + item.spec + '), кол-во: ' + item.qty;
@@ -1428,17 +1423,13 @@
         var bodyLines = [
           'Новая заявка с сайта DEYE',
           '',
-          'Имя: ' + name,
-          'Телефон: ' + phone,
-          email ? ('Email: ' + email) : '',
-          '',
           'Состав заказа:',
           lines.join('\n'),
           '',
           'Итого: ' + formatPrice(total)
-        ].filter(Boolean).join('\n');
+        ].join('\n');
 
-        var subject = 'Заявка с сайта — ' + name;
+        var subject = 'Заявка с сайта DEYE';
         var mailtoUrl = 'mailto:' + SALES_EMAIL
           + '?subject=' + encodeURIComponent(subject)
           + '&body=' + encodeURIComponent(bodyLines);
@@ -1452,7 +1443,6 @@
         cart = [];
         saveCart(cart);
         updateBadge();
-        cartForm.reset();
       });
     }
 
