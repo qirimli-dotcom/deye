@@ -279,15 +279,15 @@
       height:auto;
       scroll-snap-align:start;
       scroll-snap-stop:always;
-      scroll-margin-top:59px;
+      scroll-margin-top:var(--hdr, 59px);
     }
     .catalog-page{scroll-snap-align:start;scroll-snap-stop:always;}
 
     /* --- Первый экран: серый фон + кнопка снизу --- */
     .hero{
       width:100%;
-      min-height:calc(100vh - 59px);
-      min-height:calc(100svh - 59px);
+      min-height:calc(100vh - var(--hdr, 59px));
+      min-height:calc(100svh - var(--hdr, 59px));
       display:flex;
       align-items:flex-end;
       justify-content:center;
@@ -1605,6 +1605,23 @@
     }
 
     renderCart();
+  })();
+</script>
+
+<script>
+  // Реальная высота шапки: она отличается на разных устройствах,
+  // а от неё зависит высота первого блока (экран минус шапка).
+  (function(){
+    var header = document.querySelector('header');
+    if(!header) return;
+    function setHdr(){
+      document.documentElement.style.setProperty('--hdr', header.offsetHeight + 'px');
+    }
+    setHdr();
+    window.addEventListener('load', setHdr);
+    window.addEventListener('resize', setHdr);
+    window.addEventListener('orientationchange', setHdr);
+    if(window.ResizeObserver){ new ResizeObserver(setHdr).observe(header); }
   })();
 </script>
 
