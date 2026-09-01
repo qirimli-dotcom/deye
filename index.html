@@ -2,11 +2,9 @@
 <html lang="ru">
 <head>
 <script>
-  // 1) При обновлении страницы браузер сам запоминает и восстанавливает
-  //    прежнюю прокрутку — отключаем это.
-  // 2) Если в адресной строке остался якорь (например, #catalog — после
-  //    нажатия на кнопку "Каталог"), браузер при обновлении страницы сам
-  //    прыгает к этому блоку. Убираем якорь из адреса, чтобы это не происходило.
+  // При обновлении страницы браузер сам восстанавливает прежнюю прокрутку,
+  // а оставшийся в адресе якорь (#catalog) заставляет прыгнуть к блоку.
+  // Отключаем и то, и другое — страница всегда открывается сверху.
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
   }
@@ -14,11 +12,11 @@
     history.replaceState(null, '', location.pathname + location.search);
   }
   function jumpTop(){
-    // Мгновенно, без плавной анимации — иначе при обновлении страницу дёргает
-    var prev = document.documentElement.style.scrollBehavior;
-    document.documentElement.style.scrollBehavior = 'auto';
+    var de = document.documentElement;
+    var prev = de.style.scrollBehavior;
+    de.style.scrollBehavior = 'auto';
     window.scrollTo(0, 0);
-    document.documentElement.style.scrollBehavior = prev;
+    de.style.scrollBehavior = prev;
   }
   jumpTop();
   window.addEventListener('DOMContentLoaded', jumpTop);
@@ -44,7 +42,7 @@
   }
 
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;height:100%;overflow-x:clip;scroll-snap-type:y proximity;}
+  html{scroll-behavior:smooth;height:100%;overflow-x:clip;scroll-snap-type:y mandatory;}
   body{
     margin:0;
     min-height:100%;
@@ -63,7 +61,6 @@
     flex-direction:column;
     scroll-snap-align:start;
     scroll-snap-stop:always;
-    scroll-margin-top:70px;
   }
   .wrap{max-width:var(--wrap);margin:0 auto;padding:0 40px;}
   @media(max-width:640px){.wrap{padding:0 20px;}}
