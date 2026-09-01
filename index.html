@@ -597,8 +597,7 @@
     flex:none;
     border-top:1px solid var(--line);
     padding:18px 20px calc(22px + env(safe-area-inset-bottom, 0px));
-    max-height:70%;
-    overflow-y:auto;
+    background:#fff;
   }
   .cart-total-row{
     display:flex;justify-content:space-between;align-items:baseline;
@@ -1602,22 +1601,10 @@
       renderCart();
     }
 
-    function fitCart(){
-      // Реальная видимая высота: на iOS панели браузера съедают низ экрана,
-      // из-за чего кнопка отправки оказывалась за границей
-      cartPanel.style.height = window.innerHeight + 'px';
-    }
     function openCart(){
-      fitCart();
       cartOverlay.classList.add('open');
       cartPanel.classList.add('open');
     }
-    window.addEventListener('resize', function(){
-      if(cartPanel.classList.contains('open')) fitCart();
-    });
-    window.addEventListener('orientationchange', function(){
-      setTimeout(function(){ if(cartPanel.classList.contains('open')) fitCart(); }, 200);
-    });
     function closeCart(){
       cartOverlay.classList.remove('open');
       cartPanel.classList.remove('open');
