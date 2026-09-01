@@ -1174,14 +1174,22 @@
 
 <script>
   (function(){
-    var STORAGE_KEY = 'deye_cart_v1';
+    var STORAGE_KEY = 'deye_cart_v2';
     var SALES_EMAIL = 'sales@deye-invertory.ru'; // TODO: заменить на реальный адрес отдела продаж
     var SALES_PHONE = '+74957788339';
 
     function loadCart(){
       try{
         var raw = localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : [];
+        var parsed = raw ? JSON.parse(raw) : [];
+        if(!Array.isArray(parsed)) return [];
+        // Отсекаем повреждённые записи (без названия, без цены и т.п.)
+        return parsed.filter(function(item){
+          return item
+            && typeof item.name === 'string' && item.name.trim() !== ''
+            && typeof item.price === 'number' && !isNaN(item.price)
+            && typeof item.qty === 'number' && item.qty > 0;
+        });
       }catch(e){ return []; }
     }
     function saveCart(cart){
