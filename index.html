@@ -400,6 +400,7 @@
   .add-cart-btn{
     margin-top:12px;
     width:100%;
+    display:flex;align-items:center;justify-content:center;gap:8px;
     background:var(--deye-blue);
     color:#fff;
     border:none;
@@ -412,6 +413,7 @@
   }
   .add-cart-btn:hover{background:#152c66;}
   .add-cart-btn.is-added{background:#1f9d55;}
+  .add-cart-icon{width:16px;height:16px;display:none;flex:none;}
   @media(max-width:640px){
     .catalog-page{padding:16px 0;justify-content:flex-start;}
     .catalog-head{margin-bottom:12px;gap:10px;}
@@ -457,6 +459,17 @@
     .product-price{
       font-size:12px;
     }
+    .add-cart-btn{
+      width:32px;height:32px;
+      flex:none;
+      margin-top:6px;
+      margin-left:auto;
+      padding:0;
+      border-radius:7px;
+      gap:0;
+    }
+    .add-cart-icon{display:block;width:16px;height:16px;}
+    .add-cart-text{display:none;}
   }
 
   /* ---------- Cart ---------- */
@@ -658,7 +671,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
-        <button type="button" class="add-cart-btn" data-name="DEYE SUN-5K-SG05LP1-EU-AM2-P" data-spec="Мощность: 5 кВт">В корзину</button>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-5K-SG05LP1-EU-AM2-P" data-spec="Мощность: 5 кВт"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="add-cart-icon"><path d="M3 4h2l1.6 9.6A2 2 0 0 0 8.57 15.2h8.86a2 2 0 0 0 1.97-1.66L20.5 7.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19.5" r="1.4" fill="currentColor"/><circle cx="17" cy="19.5" r="1.4" fill="currentColor"/></svg><span class="add-cart-text">В корзину</span></button>
       </div>
 
       <div class="product-card">
@@ -690,7 +703,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
-        <button type="button" class="add-cart-btn" data-name="DEYE SUN-6K-SG05LP1-EU-AM2-P" data-spec="Мощность: 6 кВт">В корзину</button>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-6K-SG05LP1-EU-AM2-P" data-spec="Мощность: 6 кВт"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="add-cart-icon"><path d="M3 4h2l1.6 9.6A2 2 0 0 0 8.57 15.2h8.86a2 2 0 0 0 1.97-1.66L20.5 7.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19.5" r="1.4" fill="currentColor"/><circle cx="17" cy="19.5" r="1.4" fill="currentColor"/></svg><span class="add-cart-text">В корзину</span></button>
       </div>
 
       <div class="product-card">
@@ -722,7 +735,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
-        <button type="button" class="add-cart-btn" data-name="DEYE SUN-8K-SG05LP1-EU-AM2-P" data-spec="Мощность: 8 кВт">В корзину</button>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-8K-SG05LP1-EU-AM2-P" data-spec="Мощность: 8 кВт"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="add-cart-icon"><path d="M3 4h2l1.6 9.6A2 2 0 0 0 8.57 15.2h8.86a2 2 0 0 0 1.97-1.66L20.5 7.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19.5" r="1.4" fill="currentColor"/><circle cx="17" cy="19.5" r="1.4" fill="currentColor"/></svg><span class="add-cart-text">В корзину</span></button>
       </div>
 
       <div class="product-card">
@@ -754,7 +767,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
-        <button type="button" class="add-cart-btn" data-name="DEYE SUN-10K-SG02LP1-EU-AM3-P" data-spec="Мощность: 10 кВт">В корзину</button>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-10K-SG02LP1-EU-AM3-P" data-spec="Мощность: 10 кВт"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="add-cart-icon"><path d="M3 4h2l1.6 9.6A2 2 0 0 0 8.57 15.2h8.86a2 2 0 0 0 1.97-1.66L20.5 7.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19.5" r="1.4" fill="currentColor"/><circle cx="17" cy="19.5" r="1.4" fill="currentColor"/></svg><span class="add-cart-text">В корзину</span></button>
       </div>
 
       <div class="product-card">
@@ -786,7 +799,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
-        <button type="button" class="add-cart-btn" data-name="DEYE SUN-12K-SG02LP1-EU-AM3-P" data-spec="Мощность: 12 кВт">В корзину</button>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-12K-SG02LP1-EU-AM3-P" data-spec="Мощность: 12 кВт"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="add-cart-icon"><path d="M3 4h2l1.6 9.6A2 2 0 0 0 8.57 15.2h8.86a2 2 0 0 0 1.97-1.66L20.5 7.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19.5" r="1.4" fill="currentColor"/><circle cx="17" cy="19.5" r="1.4" fill="currentColor"/></svg><span class="add-cart-text">В корзину</span></button>
       </div>
 
     </div></div>
@@ -831,7 +844,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
-        <button type="button" class="add-cart-btn" data-name="DEYE SUN-10K-SG05LP3-EU-SM2" data-spec="Мощность: 10 кВт · Трёхфазный">В корзину</button>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-10K-SG05LP3-EU-SM2" data-spec="Мощность: 10 кВт · Трёхфазный"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="add-cart-icon"><path d="M3 4h2l1.6 9.6A2 2 0 0 0 8.57 15.2h8.86a2 2 0 0 0 1.97-1.66L20.5 7.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19.5" r="1.4" fill="currentColor"/><circle cx="17" cy="19.5" r="1.4" fill="currentColor"/></svg><span class="add-cart-text">В корзину</span></button>
       </div>
       <div class="product-card">
         <div class="product-photo">
@@ -862,7 +875,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
-        <button type="button" class="add-cart-btn" data-name="DEYE SUN-12K-SG05LP3-EU-SM2" data-spec="Мощность: 12 кВт · Трёхфазный">В корзину</button>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-12K-SG05LP3-EU-SM2" data-spec="Мощность: 12 кВт · Трёхфазный"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="add-cart-icon"><path d="M3 4h2l1.6 9.6A2 2 0 0 0 8.57 15.2h8.86a2 2 0 0 0 1.97-1.66L20.5 7.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19.5" r="1.4" fill="currentColor"/><circle cx="17" cy="19.5" r="1.4" fill="currentColor"/></svg><span class="add-cart-text">В корзину</span></button>
       </div>
       <div class="product-card">
         <div class="product-photo">
@@ -893,7 +906,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
-        <button type="button" class="add-cart-btn" data-name="DEYE SUN-14K-SG05LP3-EU-SM2" data-spec="Мощность: 14 кВт · Трёхфазный">В корзину</button>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-14K-SG05LP3-EU-SM2" data-spec="Мощность: 14 кВт · Трёхфазный"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="add-cart-icon"><path d="M3 4h2l1.6 9.6A2 2 0 0 0 8.57 15.2h8.86a2 2 0 0 0 1.97-1.66L20.5 7.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19.5" r="1.4" fill="currentColor"/><circle cx="17" cy="19.5" r="1.4" fill="currentColor"/></svg><span class="add-cart-text">В корзину</span></button>
       </div>
       <div class="product-card">
         <div class="product-photo">
@@ -924,7 +937,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
-        <button type="button" class="add-cart-btn" data-name="DEYE SUN-15K-SG05LP3-EU-SM2" data-spec="Мощность: 15 кВт · Трёхфазный">В корзину</button>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-15K-SG05LP3-EU-SM2" data-spec="Мощность: 15 кВт · Трёхфазный"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="add-cart-icon"><path d="M3 4h2l1.6 9.6A2 2 0 0 0 8.57 15.2h8.86a2 2 0 0 0 1.97-1.66L20.5 7.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19.5" r="1.4" fill="currentColor"/><circle cx="17" cy="19.5" r="1.4" fill="currentColor"/></svg><span class="add-cart-text">В корзину</span></button>
       </div>
       <div class="product-card">
         <div class="product-photo">
@@ -955,7 +968,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
-        <button type="button" class="add-cart-btn" data-name="DEYE SUN-16K-SG05LP3-EU-SM2" data-spec="Мощность: 16 кВт · Трёхфазный">В корзину</button>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-16K-SG05LP3-EU-SM2" data-spec="Мощность: 16 кВт · Трёхфазный"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="add-cart-icon"><path d="M3 4h2l1.6 9.6A2 2 0 0 0 8.57 15.2h8.86a2 2 0 0 0 1.97-1.66L20.5 7.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19.5" r="1.4" fill="currentColor"/><circle cx="17" cy="19.5" r="1.4" fill="currentColor"/></svg><span class="add-cart-text">В корзину</span></button>
       </div>
       <div class="product-card">
         <div class="product-photo">
@@ -986,7 +999,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
-        <button type="button" class="add-cart-btn" data-name="DEYE SUN-18K-SG05LP3-EU-SM2" data-spec="Мощность: 18 кВт · Трёхфазный">В корзину</button>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-18K-SG05LP3-EU-SM2" data-spec="Мощность: 18 кВт · Трёхфазный"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="add-cart-icon"><path d="M3 4h2l1.6 9.6A2 2 0 0 0 8.57 15.2h8.86a2 2 0 0 0 1.97-1.66L20.5 7.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19.5" r="1.4" fill="currentColor"/><circle cx="17" cy="19.5" r="1.4" fill="currentColor"/></svg><span class="add-cart-text">В корзину</span></button>
       </div>
       <div class="product-card">
         <div class="product-photo">
@@ -1017,7 +1030,7 @@
           </div>
           <span class="product-price">0,00 ₽</span>
         </div>
-        <button type="button" class="add-cart-btn" data-name="DEYE SUN-20K-SG05LP3-EU-SM2" data-spec="Мощность: 20 кВт · Трёхфазный">В корзину</button>
+        <button type="button" class="add-cart-btn" data-name="DEYE SUN-20K-SG05LP3-EU-SM2" data-spec="Мощность: 20 кВт · Трёхфазный"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="add-cart-icon"><path d="M3 4h2l1.6 9.6A2 2 0 0 0 8.57 15.2h8.86a2 2 0 0 0 1.97-1.66L20.5 7.5H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="19.5" r="1.4" fill="currentColor"/><circle cx="17" cy="19.5" r="1.4" fill="currentColor"/></svg><span class="add-cart-text">В корзину</span></button>
       </div>
     </div>
   </div>
