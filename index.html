@@ -60,6 +60,7 @@
     flex-direction:column;
     scroll-snap-align:start;
     scroll-snap-stop:always;
+    scroll-margin-top:70px;
   }
   .wrap{max-width:var(--wrap);margin:0 auto;padding:0 40px;}
   @media(max-width:640px){.wrap{padding:0 20px;}}
@@ -265,8 +266,8 @@
     }
     .hero{
       flex:none;
-      min-height:100vh;
-      min-height:100dvh;
+      min-height:calc(100vh - 55px);
+      min-height:calc(100dvh - 55px);
       display:flex;
       align-items:flex-end;
       justify-content:center;
